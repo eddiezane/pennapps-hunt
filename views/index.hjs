@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <p>Nice job finding this!</p>
+  <form action="/nice" method="POST" style="display: none;">
+    <input type="text" name="email">
+  </form>
+</body>
+</html>
