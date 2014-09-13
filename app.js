@@ -1,9 +1,10 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
+var dotenv = require('dotenv').load();
 var sendgrid = require('sendgrid')(process.env['SENDGRID_USERNAME'], process.env['SENDGRID_PASSWORD']);
 var mongoose = require('mongoose');
-var dotenv = require('dotenv').load();
+var validator = require('validator');
 var app = express();
 var server = require('http').createServer(app);
 
@@ -21,7 +22,7 @@ app.set('view engine', 'hjs');
 app.use(bodyParser());
 app.use(multer());
 
-app.get('/', function(req, res) {
+app.get('/yay', function(req, res) {
   res.render('index');
 });
 
@@ -32,17 +33,29 @@ app.post('/', function(req, res) {
 
   email.to = to;
   email.from = 'taco@cat.limo';
-  email.addHeader('X-YAAAY', process.env['RESHEADER']);
+  email.from_name = 'TacoCat';
+  email.addHeader('X-AHEAD-YAY', process.env['RESHEADER']);
+  email.addHeader('X-HINT', 'Think 64 ^');
   email.subject = 'Keep going...';
-  email.text = "Looks like you're getting ahead!";
+  email.text = "Looks like you're getting aHEAD!";
+  email.html = "Looks like you're getting a<em><b>head</b></em>!<br><br><br><br><br><br><a href='http://en.wikipedia.org/wiki/Email#Message_header'>Stuck?</a>";
 
   sendgrid.send(email);
 
   res.status(200).end();
 });
 
-app.patch('/rad', function(req, res) {
-  console.log(req.body);
+app.post('/rad', function(req, res) {
+  if (typeof(req.body.email) != "string" || typeof(req.body.name) != "string") {
+    res.status(409).send({status: "Not quite"});
+    return;
+  }
+
+  if (!validator.isEmail(req.body.email)) {
+    res.status(409).send({status: "Need a real one!"});
+    return;
+  }
+
   Person.findOne({'email': req.body.email}, function(err, person) {
     if (person) {
       res.status(409).send({status: "You are already entered!"});
