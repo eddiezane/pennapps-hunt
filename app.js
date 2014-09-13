@@ -26,7 +26,7 @@ app.get('/yay', function(req, res) {
   res.render('index');
 });
 
-app.post('/', function(req, res) {
+app.post('/in', function(req, res) {
   var to = JSON.parse(req.body.envelope)['from'];
 
   var email = new sendgrid.Email();
@@ -34,8 +34,8 @@ app.post('/', function(req, res) {
   email.to = to;
   email.from = 'taco@cat.limo';
   email.from_name = 'TacoCat';
-  email.addHeader('X-AHEAD-YAY', process.env['RESHEADER']);
-  email.addHeader('X-HINT', 'Think 64 ^');
+  email.addHeader('X-AHEAD-YAAAY', process.env['RESHEADER']);
+  email.addHeader('X-HINT', 'Think 64');
   email.subject = 'Keep going...';
   email.text = "Looks like you're getting aHEAD!";
   email.html = "Looks like you're getting a<em><b>head</b></em>!<br><br><br><br><br><br><a href='http://en.wikipedia.org/wiki/Email#Message_header'>Stuck?</a>";
