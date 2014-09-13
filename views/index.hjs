@@ -6,7 +6,8 @@
 </head>
 <body>
   <p>Nice job finding this!</p>
-  <form action="/nice" method="POST" style="display: none;">
+  <form action="/rad" method="PATCH" style="display: none;">
+    <input type="text" name="name">
     <input type="text" name="email">
   </form>
 </body>
